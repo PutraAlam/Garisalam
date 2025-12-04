@@ -160,8 +160,8 @@
             margin: 0 auto;
         }
 
-        /* Video Carousel Styles */
-        .video-carousel {
+        /* Video Container Styles */
+        .video-container {
             position: relative;
             width: 100%;
             max-width: 900px;
@@ -174,35 +174,9 @@
             transition: opacity 0.8s, transform 0.8s;
         }
 
-        .video-carousel.visible {
+        .video-container.visible {
             opacity: 1;
             transform: translateY(0);
-        }
-
-        .carousel-track-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            height: 100%;
-        }
-
-        .carousel-slide {
-            min-width: 100%;
-            position: relative;
-            opacity: 0.7;
-            transform: scale(0.9);
-            transition: opacity 0.5s, transform 0.5s;
-        }
-
-        .carousel-slide.active {
-            opacity: 1;
-            transform: scale(1);
         }
 
         .video-wrapper {
@@ -236,7 +210,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #333;
+            background-color: rgba(0, 0, 0, 0.8);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -244,78 +218,31 @@
             color: white;
             text-align: center;
             padding: 20px;
+            border-radius: 8px;
         }
 
         .video-fallback p {
             margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .video-fallback .btn {
+            background-color: #ff0000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .video-fallback .btn:hover {
+            background-color: #cc0000;
         }
 
         .video-fallback a {
             color: #ff9800;
             text-decoration: underline;
-        }
-
-        /* Carousel Navigation Buttons */
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(46, 125, 50, 0.8);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            transition: all 0.3s ease;
-            z-index: 10;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .carousel-btn:hover {
-            background: rgba(27, 94, 32, 0.9);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .carousel-btn:disabled {
-            background: rgba(204, 204, 204, 0.7);
-            cursor: not-allowed;
-            transform: translateY(-50%);
-        }
-
-        .carousel-btn--left {
-            left: 20px;
-        }
-
-        .carousel-btn--right {
-            right: 20px;
-        }
-
-        /* Carousel Indicators */
-        .carousel-indicators {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 10px;
-        }
-
-        .carousel-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #ddd;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .carousel-indicator.active {
-            background-color: #2e7d32;
-            transform: scale(1.2);
         }
 
         /* Destinasi Section */
@@ -869,30 +796,6 @@
             .modal-section h3 {
                 font-size: 20px;
             }
-
-            /* Carousel mobile styles */
-            .carousel-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-
-            .carousel-btn--left {
-                left: 10px;
-            }
-
-            .carousel-btn--right {
-                right: 10px;
-            }
-
-            /* Swipe indicator for mobile */
-            .swipe-indicator {
-                display: block;
-                text-align: center;
-                margin-top: 10px;
-                color: #666;
-                font-size: 14px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -978,11 +881,6 @@
             }
         }
 
-        /* Swipe indicator - hidden by default on desktop */
-        .swipe-indicator {
-            display: none;
-        }
-
         /* Loading indicator for images */
         .image-loading {
             display: flex;
@@ -1049,10 +947,6 @@
             <div class="pagination" id="pagination">
                 <!-- Pagination akan di-generate oleh JavaScript -->
             </div>
-            <!-- Swipe indicator for mobile -->
-            <div class="swipe-indicator" id="swipeIndicator">
-                ⬅️ Geser untuk navigasi halaman ➡️
-            </div>
         </div>
     </section>
 
@@ -1064,31 +958,24 @@
                 <p>Saksikan keindahan alam Jawa Timur dalam video dokumenter yang memukau</p>
             </div>
             
-            <!-- Video Carousel -->
-            <div class="video-carousel" id="videoCarousel">
-                <div class="carousel-track-container">
-                    <div class="carousel-track" id="carouselTrack">
-                        <!-- Video slides akan diisi oleh JavaScript -->
+            <!-- Video Container -->
+            <div class="video-container" id="videoContainer">
+                <div class="video-wrapper">
+                    <iframe 
+                        id="youtubeVideo"
+                        src="https://www.youtube.com/embed/X3Osu7nvfoI?si=M9TlTADlQaMj9n30&enablejsapi=1" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen
+                        referrerpolicy="strict-origin-when-cross-origin">
+                    </iframe>
+                    <div class="video-fallback" id="videoFallback" style="display: none;">
+                        <p>Video tidak dapat dimuat. Silakan kunjungi YouTube untuk menonton video.</p>
+                        <a href="https://www.youtube.com/watch?v=X3Osu7nvfoI" target="_blank" class="btn">Tonton di YouTube</a>
                     </div>
                 </div>
-                
-                <!-- Navigation buttons -->
-                <button class="carousel-btn carousel-btn--left" id="prevVideoBtn">
-                    &larr;
-                </button>
-                <button class="carousel-btn carousel-btn--right" id="nextVideoBtn">
-                    &rarr;
-                </button>
-                
-                <!-- Carousel indicators -->
-                <div class="carousel-indicators" id="carouselIndicators">
-                    <!-- Indicators akan diisi oleh JavaScript -->
-                </div>
-            </div>
-            
-            <!-- Swipe indicator for mobile -->
-            <div class="swipe-indicator" id="videoSwipeIndicator">
-                ⬅️ Geser untuk melihat video lainnya ➡️
+                <p class="video-caption">Video dokumenter keindahan alam Jawa Timur</p>
             </div>
         </div>
     </section>
@@ -1949,35 +1836,10 @@
             }
         ];
 
-        // Data video untuk carousel dengan YouTube links
-        const videos = [
-            {
-                id: 1,
-                title: "Keindahan Alam Jawa Timur",
-                src: "https://www.youtube.com/embed/VIDEO_ID_1",
-                caption: "Video dokumenter keindahan alam Jawa Timur"
-            },
-            {
-                id: 2,
-                title: "Air Terjun Coban Glotak Malang",
-                src: "https://www.youtube.com/embed/VIDEO_ID_2",
-                caption: "Dokumenter Perjalanan Coban Glotak"
-            },
-            {
-                id: 3,
-                title: "Gunung Bromo",
-                src: "https://www.youtube.com/embed/VIDEO_ID_3",
-                caption: "Pendakian ke puncak"
-            }
-        ];
-
         // Konfigurasi pagination
         const destinationsPerPage = 6;
         let currentPage = 1;
         let totalPages = Math.ceil(destinations.length / destinationsPerPage);
-
-        // Konfigurasi video carousel
-        let currentVideoIndex = 0;
 
         // Variables for swipe functionality
         let touchStartX = 0;
@@ -2236,115 +2098,20 @@
             }
         }
 
-        // Fungsi untuk setup video carousel
-        function setupVideoCarousel() {
-            const carouselTrack = document.getElementById('carouselTrack');
-            const indicatorsContainer = document.getElementById('carouselIndicators');
+        // Fungsi untuk setup video
+        function setupVideo() {
+            const youtubeVideo = document.getElementById('youtubeVideo');
+            const videoFallback = document.getElementById('videoFallback');
             
-            // Generate video slides
-            videos.forEach((video, index) => {
-                const slide = document.createElement('div');
-                slide.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
-                slide.innerHTML = `
-                    <div class="video-wrapper">
-                        <iframe src="${video.src}" 
-                                title="${video.title}" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                        </iframe>
-                        <div class="video-fallback" style="display: none;">
-                            <p>Video tidak dapat dimuat. Silakan kunjungi YouTube untuk menonton video.</p>
-                        </div>
-                    </div>
-                    <p class="video-caption">${video.caption}</p>
-                `;
-                carouselTrack.appendChild(slide);
-                
-                // Generate indicator
-                const indicator = document.createElement('button');
-                indicator.className = `carousel-indicator ${index === 0 ? 'active' : ''}`;
-                indicator.addEventListener('click', () => {
-                    goToVideo(index);
-                });
-                indicatorsContainer.appendChild(indicator);
+            // Deteksi error pada video
+            youtubeVideo.addEventListener('error', function() {
+                videoFallback.style.display = 'flex';
             });
             
-            // Setup event listeners for navigation buttons
-            document.getElementById('prevVideoBtn').addEventListener('click', () => {
-                goToPrevVideo();
+            // Jika video berhasil dimuat
+            youtubeVideo.addEventListener('load', function() {
+                videoFallback.style.display = 'none';
             });
-            
-            document.getElementById('nextVideoBtn').addEventListener('click', () => {
-                goToNextVideo();
-            });
-            
-            // Setup swipe functionality for carousel
-            setupCarouselSwipe();
-        }
-
-        // Fungsi untuk pergi ke video tertentu
-        function goToVideo(index) {
-            const slides = document.querySelectorAll('.carousel-slide');
-            const indicators = document.querySelectorAll('.carousel-indicator');
-            
-            // Remove active class from all slides and indicators
-            slides.forEach(slide => slide.classList.remove('active'));
-            indicators.forEach(indicator => indicator.classList.remove('active'));
-            
-            // Add active class to current slide and indicator
-            slides[index].classList.add('active');
-            indicators[index].classList.add('active');
-            
-            currentVideoIndex = index;
-            
-            // Update navigation buttons state
-            updateVideoNavigationButtons();
-        }
-
-        // Fungsi untuk pergi ke video sebelumnya
-        function goToPrevVideo() {
-            const newIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
-            goToVideo(newIndex);
-        }
-
-        // Fungsi untuk pergi ke video berikutnya
-        function goToNextVideo() {
-            const newIndex = (currentVideoIndex + 1) % videos.length;
-            goToVideo(newIndex);
-        }
-
-        // Fungsi untuk update status tombol navigasi video
-        function updateVideoNavigationButtons() {
-            // Tombol navigasi video tidak perlu di-disable karena carousel bersifat loop
-            // Tetapi kita bisa menambahkan logika lain jika diperlukan
-        }
-
-        // Fungsi untuk setup swipe pada carousel
-        function setupCarouselSwipe() {
-            const carousel = document.getElementById('videoCarousel');
-            
-            carousel.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-            });
-
-            carousel.addEventListener('touchend', function(e) {
-                touchEndX = e.changedTouches[0].screenX;
-                handleCarouselSwipe();
-            });
-        }
-
-        // Fungsi untuk menangani swipe pada carousel
-        function handleCarouselSwipe() {
-            const swipeDistance = touchEndX - touchStartX;
-            
-            // Swipe kiri (next video)
-            if (swipeDistance < -swipeThreshold) {
-                goToNextVideo();
-            }
-            // Swipe kanan (previous video)
-            else if (swipeDistance > swipeThreshold) {
-                goToPrevVideo();
-            }
         }
 
         // Intersection Observer untuk efek fade in saat scroll
@@ -2358,29 +2125,6 @@
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         });
-
-        // Deteksi error video dan tampilkan fallback
-        function setupVideoFallbacks() {
-            const videoIframes = document.querySelectorAll('.video-wrapper iframe');
-            
-            videoIframes.forEach(iframe => {
-                iframe.addEventListener('load', function() {
-                    // Jika iframe berhasil dimuat, sembunyikan fallback
-                    const fallback = iframe.parentElement.querySelector('.video-fallback');
-                    if (fallback) {
-                        fallback.style.display = 'none';
-                    }
-                });
-                
-                iframe.addEventListener('error', function() {
-                    // Jika iframe gagal dimuat, tampilkan fallback
-                    const fallback = iframe.parentElement.querySelector('.video-fallback');
-                    if (fallback) {
-                        fallback.style.display = 'flex';
-                    }
-                });
-            });
-        }
 
         // Smooth scroll untuk navigasi
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2444,34 +2188,17 @@
             handleSwipe();
         });
 
-        // Tampilkan indikator swipe hanya untuk perangkat mobile/tablet
-        function checkDeviceType() {
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            const swipeIndicator = document.getElementById('swipeIndicator');
-            const videoSwipeIndicator = document.getElementById('videoSwipeIndicator');
-            
-            if (isMobile && swipeIndicator) {
-                swipeIndicator.style.display = 'block';
-            }
-            
-            if (isMobile && videoSwipeIndicator) {
-                videoSwipeIndicator.style.display = 'block';
-            }
-        }
-
         // Inisialisasi halaman
         document.addEventListener('DOMContentLoaded', function() {
             displayDestinations(currentPage);
             setupPagination();
-            setupVideoCarousel();
-            checkDeviceType();
-            setupVideoFallbacks();
+            setupVideo();
             
             // Event listener untuk form kontak
             document.getElementById('contactForm').addEventListener('submit', sendEmail);
             
             // Observe semua elemen dengan class yang perlu fade in
-            const fadeElements = document.querySelectorAll('.section-title, .about-img, .about-text, .contact-info, .contact-form, .footer-column, .copyright, .video-carousel');
+            const fadeElements = document.querySelectorAll('.section-title, .about-img, .about-text, .contact-info, .contact-form, .footer-column, .copyright, .video-container');
             fadeElements.forEach(el => {
                 scrollObserver.observe(el);
             });
@@ -2479,5 +2206,3 @@
     </script>
 </body>
 </html>
-
-
